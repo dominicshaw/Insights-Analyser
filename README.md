@@ -4,8 +4,15 @@
 
 Working with Xamarin and wanting to understand my custom events I found it hard to visualise what I wanted to visualise in App Center / Insights so I have written a quick UI I find useful.
 
+![Screenshot](https://raw.githubusercontent.com/dominicshaw/Insights-Analyser/master/InsightsAnalyser/screenshot.png)
+
+- group & filter events
+- view a breakout of the "properties" that you set on custom data
+
+## How to use
+
 ### Step 1 - add app center to your app
-follow instructions @ appcenter.ms.
+- follow instructions @ appcenter.ms.
 
 ### Step 2 - add an export from app centre to insights
 - click your app in app center; 
