@@ -16,6 +16,29 @@ You can further see I am limiting the return to certain kinds of custom event na
 
 On the right the breakout of the JSON blobs that come back; first the "Properties" blob which is always the same, and then below is the breakout of the data dictionary you append to the custom events via the app center tracking methods.
 
+For context, the event highlighted was created with the following code:
+
+```cs
+catch (Exception ex) when (ex is WebException || ex is HttpRequestException)
+{
+    Reporter.Track("Web Exception Sending Ticket", new Dictionary<string, string>
+    {
+        { "Stock", _ticket.SelectedStock?.Name },
+        { "Direction", _ticket.Direction },
+        { "Amount", _ticket.Amount + ": " + _ticket.AmountType?.Name },
+        { "Error", ex.Message }
+    });
+}
+```
+where Reporter.Track is defined
+```cs
+public static void Track(string eventName, Dictionary<string, string> data)
+{
+    data.Add("User", _username);
+    Analytics.TrackEvent(eventName, data);
+}
+```
+
 ## How to use
 
 ### Step 1 - add app center to your app
