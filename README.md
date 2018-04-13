@@ -6,8 +6,15 @@ Working with Xamarin and wanting to understand my custom events I found it hard 
 
 ![Screenshot](https://raw.githubusercontent.com/dominicshaw/Insights-Analyser/master/InsightsAnalyser/screenshot.png)
 
-- group & filter events
-- view a breakout of the "properties" that you set on custom data
+You can easily:
+- group & filter events;
+- view a breakout of the "properties" that you set on custom data.
+
+In the screenshot you can see the data grouped by user (this is actually derived from the custom properties; I add "user" to all trace events), then by session, to differentiate between each "run" of the application. 
+
+You can further see I am limiting the return to certain kinds of custom event name to show just the ones I am interested in. 
+
+On the right the breakout of the JSON blobs that come back; first the "Properties" blob which is always the same, and then below is the breakout of the data dictionary you append to the custom events via the app center tracking methods.
 
 ## How to use
 
