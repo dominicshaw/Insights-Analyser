@@ -14,11 +14,15 @@ namespace InsightsAnalyser
         
         private static readonly ILog _log = LogManager.GetLogger(typeof(MainWindow));
 
+        private MainViewModel _model;
+
         public MainWindow(MainViewModel model)
         {
             InitializeComponent();
 
-            DataContext = model;
+            _model = model;
+
+            DataContext = _model;
 
             _tracker.Configure(this)
                 .IdentifyAs(GetType().ToString())
@@ -43,7 +47,7 @@ namespace InsightsAnalyser
             }
         }
 
-        private void MainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private async void MainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             try
             {
@@ -56,6 +60,8 @@ namespace InsightsAnalyser
 
                 if (File.Exists(path))
                     layout.RestoreLayoutFromXml(path);
+
+                await _model.CheckForFile();
             }
             catch (Exception ex)
             {

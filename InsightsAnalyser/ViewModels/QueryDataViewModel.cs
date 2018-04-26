@@ -1,14 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using InsightsAnalyser.Annotations;
+using System.Globalization;
 using InsightsAnalyser.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace InsightsAnalyser.ViewModels
 {
-    public class QueryDataViewModel : INotifyPropertyChanged
+    public class QueryDataViewModel
     {
         private readonly QueryData _model;
         
@@ -47,6 +45,8 @@ namespace InsightsAnalyser.ViewModels
 
         public string Properties { get; }
         public string User { get; }
+        public DateTime AdditionalTime { get; }
+        public string AdditionalMessage { get; }
 
         public QueryDataViewModel(QueryData model)
         {
@@ -62,18 +62,12 @@ namespace InsightsAnalyser.ViewModels
 
             Properties = JsonConvert.SerializeObject(props, Formatting.Indented);
 
-            if (props is JObject o && o.ContainsKey("user"))
+            if (props is JObject o)
             {
-                User = o["user"].Value<string>();
+                if (o.ContainsKey("user")) User = o["user"].Value<string>();
+                if (o.ContainsKey("time") && DateTime.TryParseExact(o["time"].Value<string>(), "yyyy-MM-dd HH:mm:ss:fff", new DateTimeFormatInfo(), DateTimeStyles.AssumeLocal, out var tm)) AdditionalTime = tm;
+                if (o.ContainsKey("message")) AdditionalMessage = o["message"].Value<string>();
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

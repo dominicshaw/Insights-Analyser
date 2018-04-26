@@ -8,7 +8,9 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:viewModels="clr-namespace:InsightsAnalyser.ViewModels"
                  xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+                 xmlns:local="clr-namespace:InsightsAnalyser"
                  mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+                 dx:DXSplashScreen.SplashScreenType="local:InsightsSplash"
                  Title="Insights Analyser" Height="350" Width="525">
 
     <Grid>
@@ -35,7 +37,7 @@
 
                     <dxdo:LayoutPanel AllowClose="False" AllowDrag="False" AllowHide="False" ShowCaption="False">
 
-                        <dxg:GridControl ItemsSource="{Binding RawData}" x:Name="dataGrid" Grid.RowSpan="2">
+                        <dxg:GridControl ItemsSource="{Binding RawData}" x:Name="dataGrid">
 
                             <dxg:GridColumn FieldName="Timestamp" IsSmart="True" SortIndex="0" SortOrder="Descending" FilterPopupMode="DateSmart">
                                 <dxg:GridColumn.EditSettings>
@@ -43,6 +45,12 @@
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
                             <dxg:GridColumn FieldName="User" IsSmart="True" FilterPopupMode="CheckedList" />
+                            <dxg:GridColumn FieldName="AdditionalTime" IsSmart="True" Visible="False">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:DateEditSettings DisplayFormat="HH:mm:ss:fff" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="AdditionalMessage" IsSmart="True" FilterPopupMode="CheckedList" Visible="False" />
                             <dxg:GridColumn FieldName="Name" IsSmart="True" FilterPopupMode="CheckedList" />
                             <dxg:GridColumn FieldName="ItemType" IsSmart="True" FilterPopupMode="CheckedList" />
                             <dxg:GridColumn FieldName="CustomDimensions" IsSmart="True" Visible="False"/>

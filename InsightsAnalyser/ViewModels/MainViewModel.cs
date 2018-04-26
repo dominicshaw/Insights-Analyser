@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,22 +32,27 @@ namespace InsightsAnalyser.ViewModels
         {
             _fileFinder.FileFound += async path =>
             {
-                try
-                {
-                    FileLocation = path;
-
-                    Working = true;
-                    await ImportFile();
-                }
-                catch (Exception ex)
-                {
-                    ErrorReporter.Report(_log, ex);
-                }
-                finally
-                {
-                    Working = false;
-                }
+                await SetFile(path);
             };
+        }
+
+        private async Task SetFile(string path)
+        {
+            try
+            {
+                FileLocation = path;
+
+                Working = true;
+                await ImportFile();
+            }
+            catch (Exception ex)
+            {
+                ErrorReporter.Report(_log, ex);
+            }
+            finally
+            {
+                Working = false;
+            }
         }
 
         public string FileLocation
@@ -128,6 +134,14 @@ namespace InsightsAnalyser.ViewModels
 
             foreach (var d in data)
                 RawData.Add(new QueryDataViewModel(d));
+        }
+
+        public async Task CheckForFile()
+        {
+            var files = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads")).Select(x => new FileInfo(x)).ToList();
+            var file = files.Where(x => x.Name.ToUpper().StartsWith("QUERY_DATA")).OrderByDescending(x => x.CreationTime).FirstOrDefault();
+            if (file != null)
+                await SetFile(file.FullName);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
