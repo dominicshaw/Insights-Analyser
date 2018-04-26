@@ -117,6 +117,8 @@
     </ApplicationDefinition>
     <Compile Include="Models\QueryData.cs" />
     <Compile Include="Models\CustomData.cs" />
+    <Compile Include="ViewModels\ErrorReporter.cs" />
+    <Compile Include="ViewModels\FileFinder.cs" />
     <Compile Include="ViewModels\QueryDataViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

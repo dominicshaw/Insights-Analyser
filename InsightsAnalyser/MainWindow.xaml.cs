@@ -39,7 +39,7 @@ namespace InsightsAnalyser
             }
             catch (Exception ex)
             {
-                _log.Error(ex);
+                ErrorReporter.Report(_log, ex);
             }
         }
 
@@ -59,7 +59,7 @@ namespace InsightsAnalyser
             }
             catch (Exception ex)
             {
-                _log.Error(ex);
+                ErrorReporter.Report(_log, ex);
             }
         }
 

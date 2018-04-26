@@ -16,14 +16,38 @@ using Microsoft.Win32;
 
 namespace InsightsAnalyser.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged, IDisposable
     {
         private string _fileLocation;
         private bool _working;
 
         private static readonly ILog _log = LogManager.GetLogger(typeof(MainViewModel));
 
+        private readonly FileFinder _fileFinder = new FileFinder();
+
         public ICommand SelectFileCommand => new AsyncCommand(SelectFile);
+
+        public MainViewModel()
+        {
+            _fileFinder.FileFound += async path =>
+            {
+                try
+                {
+                    FileLocation = path;
+
+                    Working = true;
+                    await ImportFile();
+                }
+                catch (Exception ex)
+                {
+                    ErrorReporter.Report(_log, ex);
+                }
+                finally
+                {
+                    Working = false;
+                }
+            };
+        }
 
         public string FileLocation
         {
@@ -86,7 +110,7 @@ namespace InsightsAnalyser.ViewModels
             }
             catch (Exception ex)
             {
-                _log.Error(ex);
+                ErrorReporter.Report(_log, ex);
             }
             finally
             {
@@ -112,6 +136,11 @@ namespace InsightsAnalyser.ViewModels
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Dispose()
+        {
+            _fileFinder?.Dispose();
         }
     }
 }
