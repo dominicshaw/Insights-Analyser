@@ -14,7 +14,7 @@ namespace InsightsAnalyser
         
         private static readonly ILog _log = LogManager.GetLogger(typeof(MainWindow));
 
-        private MainViewModel _model;
+        private readonly MainViewModel _model;
 
         public MainWindow(MainViewModel model)
         {

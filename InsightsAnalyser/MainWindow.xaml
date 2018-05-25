@@ -6,10 +6,10 @@
                  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:viewModels="clr-namespace:InsightsAnalyser.ViewModels"
+                 xmlns:vms="clr-namespace:InsightsAnalyser.ViewModels"
                  xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
                  xmlns:local="clr-namespace:InsightsAnalyser"
-                 mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+                 mc:Ignorable="d" d:DataContext="{d:DesignInstance vms:MainViewModel}"
                  dx:DXSplashScreen.SplashScreenType="local:InsightsSplash"
                  Title="Insights Analyser" Height="350" Width="525">
 
@@ -37,7 +37,7 @@
 
                     <dxdo:LayoutPanel AllowClose="False" AllowDrag="False" AllowHide="False" ShowCaption="False">
 
-                        <dxg:GridControl ItemsSource="{Binding RawData}" x:Name="dataGrid">
+                        <dxg:GridControl ItemsSource="{Binding RawData}" x:Name="dataGrid" DesignTimeDataObjectType="vms:QueryDataViewModel">
 
                             <dxg:GridColumn FieldName="Timestamp" IsSmart="True" SortIndex="0" SortOrder="Descending" FilterPopupMode="DateSmart">
                                 <dxg:GridColumn.EditSettings>
