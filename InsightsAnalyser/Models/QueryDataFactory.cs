@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CsvHelper;
-using DevExpress.Mvvm.POCO;
 
 namespace InsightsAnalyser.Models
 {

@@ -52,9 +52,8 @@ public static void Track(string eventName, Dictionary<string, string> data)
 
 ### Step 3 - export from insights
 - once it has exported and set up, you will have a "View in Azure" button on the export; click it;
-- this opens azure, now click "Analytics" in the menu near the top;
-- double click "customEvents" on the left; this pulls up a query;
-- run the query for any time period you like;
+- this opens azure, now click "Transaction Search" in the menu on the left;
+- click "View in Logs" on the top menu within Transaction Search
 - hit the export button - csv, all columns.
 
 ### Step 4 - load the file
